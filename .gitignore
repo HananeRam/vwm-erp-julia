@@ -1,0 +1,14 @@
+# Raw data stays on OpenNeuro
+data/
+# Large intermediate tables (regenerate with scripts/01)
+results/*.csv
+.DS_Store
+# MATLAB alpha output (kept local; used only by scripts/05)
+scripts/alpha_power.mat
+# Serialized trial data (large; regenerate with scripts/01)
+results/*.jls
+
+# macOS files on external drives
+._*
+.Rhistory
+PROFILE_README.md

@@ -1,0 +1,55 @@
+Julia reproduction vs. MATLAB/R results (correct trials, participant-level means)
+
+N2pc (238.3–300 ms)
+  ANOVA  MATLAB: F(3, 114) = 7.32, p < .001, ηp² = 0.160
+         Julia:  F(3, 114) = 7.07, p = 0.0002, ηp² = 0.157 (N = 39)
+  Mean (SD), µV      MATLAB         Julia
+    2-UR          -0.33 (0.67)    -0.34 (0.66)
+    3-UR          -0.33 (0.74)    -0.35 (0.76)
+    3-RSP         -0.66 (0.71)    -0.67 (0.71)
+    3-RWP         -0.57 (0.75)    -0.58 (0.75)
+  Pairwise (A − B), Bonferroni   MATLAB: diff [95% CI], p  Julia: diff [95% CI], p, dz
+    3-RSP − 2-UR    -0.33 [-0.50, -0.15], p = 0.001   -0.33 [-0.50, -0.15], p = 0.001, dz = -0.53
+    3-RWP − 2-UR    -0.24 [-0.41, -0.07], p = 0.037   -0.24 [-0.41, -0.06], p = 0.045, dz = -0.41
+    3-UR − 2-UR     not reported                   -0.00 [-0.18,  0.17], p = 1.000, dz = -0.01
+    3-RWP − 3-RSP   not reported                    0.09 [-0.08,  0.27], p = 1.000, dz = 0.19
+    3-UR − 3-RSP     0.33 [ 0.15,  0.50], p = 0.001    0.32 [ 0.15,  0.50], p = 0.001, dz = 0.60
+    3-UR − 3-RWP     0.24 [ 0.07,  0.41], p = 0.038    0.23 [ 0.06,  0.41], p = 0.053, dz = 0.43
+
+Early CDA (300–450 ms)
+  ANOVA  MATLAB: F(3, 114) = 5.27, p = .002, ηp² = 0.122
+         Julia:  F(3, 114) = 5.14, p = 0.0023, ηp² = 0.119 (N = 39)
+  Mean (SD), µV      MATLAB         Julia
+    2-UR          -0.43 (0.78)    -0.44 (0.78)
+    3-UR          -0.52 (0.78)    -0.53 (0.78)
+    3-RSP         -0.43 (0.66)    -0.43 (0.66)
+    3-RWP         -0.73 (0.81)    -0.72 (0.80)
+  Pairwise (A − B), Bonferroni   MATLAB: diff [95% CI], p  Julia: diff [95% CI], p, dz
+    3-RSP − 2-UR      —   p = 1.000                 0.00 [-0.16,  0.17], p = 1.000, dz = 0.01
+    3-RWP − 2-UR    -0.29 [-0.46, -0.12], p = 0.004   -0.29 [-0.45, -0.12], p = 0.004, dz = -0.49
+    3-UR − 2-UR       —   p = 1.000                -0.09 [-0.26,  0.08], p = 1.000, dz = -0.16
+    3-RWP − 3-RSP   -0.29 [-0.46, -0.13], p = 0.003   -0.29 [-0.46, -0.12], p = 0.004, dz = -0.52
+    3-UR − 3-RSP      —   p = 1.000                -0.09 [-0.26,  0.08], p = 1.000, dz = -0.19
+    3-UR − 3-RWP      —   p = 0.102                 0.20 [ 0.03,  0.37], p = 0.115, dz = 0.49
+
+Sustained CDA (300–996.1 ms)
+  ANOVA  MATLAB: F(3, 114) = 0.86, p = .46, ηp² = 0.020
+         Julia:  F(3, 114) = 0.90, p = 0.4434, ηp² = 0.023 (N = 39)
+  Mean (SD), µV      MATLAB         Julia
+    2-UR               —          -0.45 (0.63)
+    3-UR               —          -0.51 (0.64)
+    3-RSP              —          -0.43 (0.55)
+    3-RWP              —          -0.56 (0.66)
+  Pairwise (A − B), Bonferroni   MATLAB: diff [95% CI], p  Julia: diff [95% CI], p, dz
+    3-RSP − 2-UR    not reported                    0.02 [-0.15,  0.19], p = 1.000, dz = 0.04
+    3-RWP − 2-UR    not reported                   -0.11 [-0.28,  0.06], p = 1.000, dz = -0.17
+    3-UR − 2-UR     not reported                   -0.06 [-0.23,  0.12], p = 1.000, dz = -0.10
+    3-RWP − 3-RSP   not reported                   -0.13 [-0.30,  0.04], p = 0.831, dz = -0.24
+    3-UR − 3-RSP    not reported                   -0.08 [-0.25,  0.10], p = 1.000, dz = -0.15
+    3-UR − 3-RWP    not reported                    0.05 [-0.12,  0.22], p = 1.000, dz = 0.11
+
+Pairwise method as in the R analysis (lme + glht, Bonferroni over six comparisons):
+pooled SE = √(2·MS_error/n), z-tests, 95% CI = diff ± t(.975, df_error)·SE.
+Uncorrected p in erp_pairwise.csv; paired t-tests in erp_pairwise_paired_t.csv.
+MATLAB values: ERPLAB + R analysis (correct trials only), as reported
+in the Stage 2 manuscript (2 decimals); "—" / not reported = not in the text.

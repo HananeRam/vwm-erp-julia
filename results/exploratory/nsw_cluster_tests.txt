@@ -1,0 +1,22 @@
+Cluster-based permutation tests, NSW (10000 permutations, alpha = 0.05)
+
+** 2-UR vs 3-UR ** (N = 39, t threshold = 2.024, cluster threshold = 50.39)
+  128.9 to 183.6 ms (mass = 62.21, p = 0.0361)
+  339.8 to 605.5 ms (mass = 239.43, p = 0.0021)
+  886.7 to 960.9 ms (mass = 51.76, p = 0.0474)
+
+** 2-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 44.21)
+  128.9 to 179.7 ms (mass = 62.36, p = 0.0253)
+  207.0 to 296.9 ms (mass = 76.96, p = 0.018)
+
+** 2-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 45.22)
+  132.8 to 179.7 ms (mass = 59.8, p = 0.0272)
+  222.7 to 285.2 ms (mass = 53.64, p = 0.0345)
+  324.2 to 558.6 ms (mass = 189.94, p = 0.0019)
+
+** 3-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 50.55)
+  328.1 to 617.2 ms (mass = 349.54, p = 0.0001)
+
+** 3-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 45.98)
+  No significant clusters.
+
