@@ -49,7 +49,7 @@ for sub in subjects
 
     # Script #1: load, downsample to 256 Hz, re-reference, bipolar EOG, DC
     # removal, high-pass.
-    data, fs = load_eeg(eeg_path(sub); channels=USE_ICA ? nothing : LOAD_CHANNELS)
+    data, fs = load_eeg(eeg_path(sub))   # all channels: the ICA uses every scalp channel
     fs_orig = fs
     if fs != TARGET_FS                 # e.g. a recording saved at 1024 Hz
         r = rationalize(TARGET_FS / fs)
@@ -115,12 +115,10 @@ for sub in subjects
                         components=join(ica.removed, ";"),
                         r_veog=join(round.(ica.r; digits=2), ";")))
     end
-    if USE_ICA
-        for ch in setdiff(keys(data), vcat(LOAD_CHANNELS, ["HEOG", "VEOG"]))
-            delete!(data, ch)            # free memory: keep only the channels analyzed
-        end
-        GC.gc()
+    for ch in setdiff(keys(data), vcat(LOAD_CHANNELS, ["HEOG", "VEOG"]))
+        delete!(data, ch)                # free memory: keep only the channels analyzed
     end
+    GC.gc()
     codes = event_codes(events)
     id in SWAP_RESPONSE_IDS && swap_response_codes!(codes)
     trials = label_trials(codes, events.sample)
@@ -228,7 +226,7 @@ CSV.write(joinpath(RESULTS, "heog.csv"), heog_all)
 CSV.write(joinpath(RESULTS, "qc.csv"), qc_all)
 CSV.write(joinpath(RESULTS, "nsw.csv"), nsw_all)
 CSV.write(joinpath(RESULTS, "alpha.csv"), alpha_all)
-USE_ICA && CSV.write(joinpath(RESULTS, "ica.csv"), ica_all)
+CSV.write(joinpath(RESULTS, "ica.csv"), ica_all)
 for d in ALPHA_CANDIDATES
     CSV.write(joinpath(RESULTS, "alpha_$(d).csv"), alpha_cand[d])
 end

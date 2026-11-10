@@ -75,22 +75,22 @@ const PAPER_MEANS = Dict(
     "cda_early" => Dict("2-UR" => (-0.43, 0.78), "3-RSP" => (-0.43, 0.66),
                         "3-RWP" => (-0.73, 0.81), "3-UR" => (-0.52, 0.78)))
 # Repeated-measures ANOVAs; p as reported.
-const PAPER_ANOVA = Dict("n2pc"      => (F=7.32, df1=3, df2=114, p="< .001", eta_p2=0.16),
-                         "cda_early" => (F=5.27, df1=3, df2=114, p="= .002", eta_p2=0.122),
-                         "cda"       => (F=0.86, df1=3, df2=114, p="= .46",  eta_p2=0.02))
+const PAPER_ANOVA = Dict("n2pc"      => (F=7.44, df1=3, df2=114, p="< .001", eta_p2=0.164),
+                         "cda_early" => (F=5.37, df1=3, df2=114, p="= .002", eta_p2=0.124),
+                         "cda"       => (F=0.91, df1=3, df2=114, p="= .44",  eta_p2=0.023))
 # Pairwise (A, B) => (mean difference, CI low, CI high, Bonferroni p);
 # NaN = not reported (only p given in the manuscript).
 const PAPER_PAIRWISE = Dict(
-    "n2pc" => Dict(("3-RSP", "2-UR")  => (-0.33, -0.50, -0.15, 0.001),
-                   ("3-RWP", "2-UR")  => (-0.24, -0.41, -0.07, 0.037),
-                   ("3-UR", "3-RSP")  => ( 0.33,  0.15,  0.50, 0.001),
-                   ("3-UR", "3-RWP")  => ( 0.24,  0.07,  0.41, 0.038)),
+    "n2pc" => Dict(("3-RSP", "2-UR")  => (-0.33, -0.51, -0.16, 0.001),
+                   ("3-RWP", "2-UR")  => (-0.24, -0.41, -0.07, 0.038),
+                   ("3-UR", "3-RSP")  => ( 0.33,  0.16,  0.51, 0.001),
+                   ("3-UR", "3-RWP")  => ( 0.24,  0.07,  0.41, 0.037)),
     "cda_early" => Dict(("3-RSP", "2-UR")  => (NaN, NaN, NaN, 1.0),
-                        ("3-RWP", "2-UR")  => (-0.29, -0.46, -0.12, 0.004),
+                        ("3-RWP", "2-UR")  => (-0.29, -0.46, -0.13, 0.003),
                         ("3-UR", "2-UR")   => (NaN, NaN, NaN, 1.0),
                         ("3-RWP", "3-RSP") => (-0.29, -0.46, -0.13, 0.003),
                         ("3-UR", "3-RSP")  => (NaN, NaN, NaN, 1.0),
-                        ("3-UR", "3-RWP")  => (NaN, NaN, NaN, 0.102)))
+                        ("3-UR", "3-RWP")  => (NaN, NaN, NaN, 0.090)))
 
 # --- Artifact detection (Script #6a) -----------------------------------------
 # Values from the AR_*_parameters_*.xlsx spreadsheets. Channel numbers there map
@@ -120,17 +120,19 @@ const ARTIFACTS = [
 #                 ICs_to_Remove.csv. Reproduces Script #4.
 #   :fastica      a new, automated ICA in Julia (removes as many components as
 #                 the original, those most correlated with VEOG). Approximate.
-#   :reject       no ICA: blinks after 200 ms rejected (30 µV, Diaz et al., 2021).
+# Every participant was ICA-corrected in the original analysis, so there is no option
+# without blink correction.
 const BLINK_CORRECTION = :ica_weights
+BLINK_CORRECTION in (:ica_weights, :fastica) ||
+    error("BLINK_CORRECTION must be :ica_weights or :fastica")
 const ICA_WEIGHTS_DIR = get(ENV, "ICA_WEIGHTS",
                             joinpath(BIDS_ROOT, "derivatives", "ReplicationPeterson2015"))
 const ICS_TO_REMOVE = joinpath(@__DIR__, "ICs_to_Remove.csv")
-# Components actually removed by Script #4 where they differ from ICs_to_Remove.xlsx,
-# identified by reconstructing the MATLAB ..._ica_corr_reref.set files from the
-# uncorrected data and the weights (see vwm-erp-julia-probe). Julia removes these to
-# reproduce the published analysis. (Participant 46, also affected, is not in this sample.)
-const ICS_APPLIED = Dict(49 => [2], 69 => [1, 7])
-const USE_ICA = BLINK_CORRECTION !== :reject
+# Optional per-participant override of ICs_to_Remove.csv (id => components). Empty: the
+# components in ICs_to_Remove.xlsx are removed for every participant, as in the revised
+# MATLAB analysis. (The first MATLAB run removed component 2 for sub-49 and 1 and 7 for
+# sub-69, which differed from the table; Script #4 was rerun with the table's components.)
+const ICS_APPLIED = Dict{Int,Vector{Int}}()
 const ICA_N_REMOVE = Dict(3 => 2, 4 => 2, 36 => 2, 39 => 2, 40 => 2, 32 => 0,
                           20 => 0, 26 => 0, 27 => 0, 29 => 0, 31 => 0, 37 => 0, 38 => 0,
                           42 => 0, 44 => 0, 45 => 0, 55 => 0, 56 => 0, 57 => 0, 60 => 0,
@@ -138,14 +140,6 @@ const ICA_N_REMOVE = Dict(3 => 2, 4 => 2, 36 => 2, 39 => 2, 40 => 2, 32 => 0,
 ica_n_remove(id) = get(ICA_N_REMOVE, id, 1)       # for :fastica
 const ICA_COMPONENTS = 30                          # for :fastica
 
-# Late blinks: used instead of ICA when USE_ICA = false. Same step function as
-# the other checks (200 ms window, 10 ms steps) on VEOG after 200 ms, with the
-# 30 µV threshold of Diaz, Vogel & Awh (2021). The −200 to 200 ms blink check
-# above (blinks during stimulus presentation) is applied in both cases.
-const USE_LATE_BLINK_REJECTION = !USE_ICA
-const LATE_BLINK = (name="blink_late", detector=:step, channel="VEOG", period=(0.2, 1.0),
-                    threshold=30.0, window_ms=200, step_ms=10)
-USE_LATE_BLINK_REJECTION && push!(ARTIFACTS, LATE_BLINK)
 const ARTIFACT_OVERRIDES = joinpath(@__DIR__, "artifact_overrides.csv")
 
 # BDF_stimulus_correct.txt bins require a correct response (120) after the memory array.
@@ -184,8 +178,8 @@ const PAIRWISE = [("2-UR", "3-UR"), ("2-UR", "3-RSP"), ("2-UR", "3-RWP"),
 # Alpha results (correct trials): BF01 from BayesFactor::ttestBF
 # (paired) in R, on % change averaged over 300–996.1 ms.
 const PAPER_ALPHA_BF01 = Dict(("2-UR", "3-UR")  => 5.49, ("2-UR", "3-RSP") => 5.79,
-                              ("2-UR", "3-RWP") => 1.00, ("3-UR", "3-RSP") => 5.27,
-                              ("3-UR", "3-RWP") => 2.82)
+                              ("2-UR", "3-RWP") => 0.95, ("3-UR", "3-RSP") => 5.27,
+                              ("3-UR", "3-RWP") => 2.74)
 
 const NSW_PERMUTATIONS = 10_000
 const NSW_ALPHA        = 0.05
@@ -194,7 +188,7 @@ const NSW_FIGURE_LOWPASS = 30.0             # Hz, figure only
 # comparisons tested in each.
 const NSW_WINDOWS = Dict("Grouping_Cluster"    => (0.3281, 0.6172),
                          "SetSize_Cluster"     => (0.4023, 0.6055),
-                         "Late_Cluster"        => (0.8867, 0.9609),
+                         "Late_Cluster"        => (0.8203, 0.9609),
                          "Diaz_SetSize"        => (0.330, 0.880),
                          "SetSize_Cluster_RWP" => (0.3242, 0.5742))
 const NSW_TARGETS = [("Grouping_Cluster", "3-UR", "3-RSP"),
@@ -205,16 +199,16 @@ const NSW_TARGETS = [("Grouping_Cluster", "3-UR", "3-RSP"),
                      ("Diaz_SetSize", "2-UR", "3-RSP")]
 # NSW results (correct trials). Significant clusters (ms) per comparison
 # (none = no cluster), and BF10 from BayesFactor::ttestBF (paired) for each window
-# test, in NSW_TARGETS order (BF01 = 5.22 and 2.99 in the manuscript → BF10 = 1/BF01).
-const PAPER_NSW_CLUSTERS = Dict(("2-UR", "3-UR")  => [(402.3, 605.5), (886.7, 960.9)],
+# test, in NSW_TARGETS order (BF01 = 5.42 and 3.11 → BF10 = 1/BF01).
+const PAPER_NSW_CLUSTERS = Dict(("2-UR", "3-UR")  => [(402.3, 605.5), (820.3, 960.9)],
                                 ("2-UR", "3-RSP") => Tuple{Float64,Float64}[],
                                 ("2-UR", "3-RWP") => [(324.2, 574.2)],
                                 ("3-UR", "3-RSP") => [(328.1, 617.2)],
                                 ("3-UR", "3-RWP") => Tuple{Float64,Float64}[])
-const PAPER_NSW_BF10 = Dict(("Grouping_Cluster", "3-UR", "3-RSP")    => 23892.0,
-                            ("Grouping_Cluster", "3-UR", "3-RWP")    => 1 / 5.22,
-                            ("SetSize_Cluster", "2-UR", "3-UR")      => 102.66,
-                            ("SetSize_Cluster_RWP", "2-UR", "3-RWP") => 27.91,
-                            ("Late_Cluster", "2-UR", "3-UR")         => 5.09,
-                            ("Diaz_SetSize", "2-UR", "3-RSP")        => 1 / 2.99)
+const PAPER_NSW_BF10 = Dict(("Grouping_Cluster", "3-UR", "3-RSP")    => 15321.2,
+                            ("Grouping_Cluster", "3-UR", "3-RWP")    => 1 / 5.418,
+                            ("SetSize_Cluster", "2-UR", "3-UR")      => 76.80,
+                            ("SetSize_Cluster_RWP", "2-UR", "3-RWP") => 31.26,
+                            ("Late_Cluster", "2-UR", "3-UR")         => 7.21,
+                            ("Diaz_SetSize", "2-UR", "3-RSP")        => 1 / 3.105)
 const RESULTS = joinpath(@__DIR__, "..", "results")

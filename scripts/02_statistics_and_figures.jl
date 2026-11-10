@@ -108,8 +108,8 @@ open(joinpath(RESULTS, "paper_comparison.txt"), "w") do io
     println(io, "Pairwise method as in the R analysis (lme + glht, Bonferroni over six comparisons):")
     println(io, "pooled SE = √(2·MS_error/n), z-tests, 95% CI = diff ± t(.975, df_error)·SE.")
     println(io, "Uncorrected p in erp_pairwise.csv; paired t-tests in erp_pairwise_paired_t.csv.")
-    println(io, "MATLAB values: ERPLAB + R analysis (correct trials only), as reported")
-    println(io, "in the Stage 2 manuscript (2 decimals); \"—\" / not reported = not in the text.")
+    println(io, "MATLAB values: revised ERPLAB + R analysis (correct trials only, ICs as in")
+    println(io, "ICs_to_Remove.xlsx; 2 decimals); \"—\" / not reported = not in the text.")
 end
 print(read(joinpath(RESULTS, "paper_comparison.txt"), String))
 end

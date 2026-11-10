@@ -148,130 +148,56 @@ the primary maintenance and late set-size clusters (`results/exploratory/nsw_fig
 
 ## Validation against the MATLAB analysis (N = 39)
 
-Applied to the BIDS data (version 1.1.4) with the original ICA weights and the components
-removed in the MATLAB analysis, the Julia pipeline reproduces the MATLAB/ERPLAB + R analysis
-reported in the Stage 2 manuscript (correct trials only). Julia keeps the same 31,954 trials as
-MATLAB, every condition mean is identical (to 2 decimals), and every ANOVA, pairwise comparison,
-cluster after 300 ms and Bayes factor gives the MATLAB value. `results/paper_comparison.txt`
-and `results/exploratory/*_paper_comparison.txt` print both side by side.
+Applied to the BIDS data (version 1.1.4) with the original ICA weights, the Julia pipeline
+reproduces the MATLAB/ERPLAB + R analysis (correct trials only). The reference is the revised
+MATLAB analysis, in which the blink components removed for every participant are those listed in
+`ICs_to_Remove.xlsx`. Julia keeps the same 31,954 trials as MATLAB, every condition
+mean is identical (to 2 decimals), and every ANOVA, pairwise comparison, cluster after 300 ms
+and Bayes factor gives the MATLAB/R value. `results/paper_comparison.txt` and
+`results/exploratory/*_paper_comparison.txt` print both side by side.
 
-| Analysis | MATLAB | Julia | Reproduced |
+| Analysis | MATLAB/R | Julia | Reproduced |
 | --- | --- | --- | --- |
 | Trials kept | 31,954 | 31,954 | Yes |
-| N2pc, ANOVA | F(3, 114) = 7.32, p < .001, ηp² = .16 | F(3, 114) = 7.32, p < .001, ηp² = .16 | Yes |
+| N2pc, ANOVA | F(3, 114) = 7.44, p < .001, ηp² = .16 | F(3, 114) = 7.44, p < .001, ηp² = .16 | Yes |
 | N2pc, 3-RSP vs 2-UR | −0.33 µV, p = .001 | −0.33 µV, p = .001 | Yes |
-| N2pc, 3-RWP vs 2-UR | −0.24 µV, p = .037 | −0.24 µV, p = .037 | Yes |
+| N2pc, 3-RWP vs 2-UR | −0.24 µV, p = .038 | −0.24 µV, p = .038 | Yes |
 | N2pc, 3-UR vs 3-RSP | 0.33 µV, p = .001 | 0.33 µV, p = .001 | Yes |
-| N2pc, 3-UR vs 3-RWP | 0.24 µV, p = .038 | 0.24 µV, p = .038 | Yes |
-| Early CDA, ANOVA | F(3, 114) = 5.27, p = .002, ηp² = .12 | F(3, 114) = 5.27, p = .002, ηp² = .12 | Yes |
-| Early CDA, 3-RWP vs 2-UR and vs 3-RSP | −0.29 and −0.29 µV, p = .004 and .003 | −0.29 and −0.29 µV, p = .004 and .003 | Yes |
-| Early CDA, 3-UR vs 3-RWP | p = .102 | 0.20 µV, p = .102 | Yes |
-| Sustained CDA, ANOVA | F(3, 114) = 0.86, p = .46, ηp² = .02 | F(3, 114) = 0.86, p = .46, ηp² = .02 | Yes |
-| NSW, grouping cluster (3-UR vs 3-RSP) | 328.1–617.2 ms, BF10 = 23,892 | 328.1–617.2 ms, BF10 = 23,906 | Yes |
-| NSW, 3-UR vs 3-RWP | no cluster, BF01 = 5.22 | no cluster, BF01 = 5.22 | Yes |
-| NSW, set size (2-UR vs 3-UR) | 402.3–605.5 ms, BF10 = 103 | 402.3–605.5 ms, BF10 = 103 | Yes |
-| NSW, set size (2-UR vs 3-RWP) | 324.2–574.2 ms, BF10 = 27.9 | 324.2–574.2 ms, BF10 = 27.9 | Yes |
-| NSW, late cluster (2-UR vs 3-UR) | 886.7–960.9 ms, BF10 = 5.09 | 886.7–960.9 ms, BF10 = 5.08 | Yes |
-| NSW, 2-UR vs 3-RSP (a priori set-size window, 330–880 ms) | no cluster, BF01 = 2.99 | no cluster after 300 ms, BF01 = 2.995 | Yes |
-| Alpha, BF01 (2-UR vs 3-UR, 3-RSP, 3-RWP; 3-UR vs 3-RSP, 3-RWP) | 5.49, 5.79, 1.00, 5.27, 2.82 | 5.49, 5.79, 1.00, 5.27, 2.82 | Yes |
+| N2pc, 3-UR vs 3-RWP | 0.24 µV, p = .037 | 0.24 µV, p = .037 | Yes |
+| Early CDA, ANOVA | F(3, 114) = 5.37, p = .002, ηp² = .12 | F(3, 114) = 5.37, p = .002, ηp² = .12 | Yes |
+| Early CDA, 3-RWP vs 2-UR and vs 3-RSP | −0.29 and −0.29 µV, p = .003 and .003 | −0.29 and −0.29 µV, p = .003 and .003 | Yes |
+| Early CDA, 3-UR vs 3-RWP | 0.21 µV, p = .090 | 0.21 µV, p = .089 | Yes |
+| Sustained CDA, ANOVA | F(3, 114) = 0.91, p = .44, ηp² = .02 | F(3, 114) = 0.90, p = .44, ηp² = .02 | Yes |
+| NSW, grouping cluster (3-UR vs 3-RSP) | 328.1–617.2 ms, BF10 = 15,321 | 328.1–617.2 ms, BF10 = 15,304 | Yes |
+| NSW, 3-UR vs 3-RWP | no cluster, BF01 = 5.42 | no cluster, BF01 = 5.42 | Yes |
+| NSW, set size (2-UR vs 3-UR) | 402.3–605.5 ms, BF10 = 76.8 | 402.3–605.5 ms, BF10 = 76.8 | Yes |
+| NSW, set size (2-UR vs 3-RWP) | 324.2–574.2 ms, BF10 = 31.3 | 324.2–574.2 ms, BF10 = 31.3 | Yes |
+| NSW, late cluster (2-UR vs 3-UR) | 820.3–960.9 ms, BF10 = 7.21 | 820.3–960.9 ms, BF10 = 7.20 | Yes |
+| NSW, 2-UR vs 3-RSP (a priori set-size window, 330–880 ms) | no cluster, BF01 = 3.11 | no cluster after 300 ms, BF01 = 3.11 | Yes |
+| Alpha, BF01 (2-UR vs 3-UR, 3-RSP, 3-RWP; 3-UR vs 3-RSP, 3-RWP) | 5.49, 5.79, 0.95, 5.27, 2.74 | 5.49, 5.79, 0.95, 5.27, 2.74 | Yes |
 
 Window tests use the MATLAB cluster windows, so both pipelines test the same intervals. The
-small differences in some NSW Bayes factors (e.g. 23,906 vs 23,892, < 0.1%) come from the
-numerical integration of the Bayes factor (Julia vs `BayesFactor::ttestBF` in R), not from the
-data (the trials, condition means and cluster windows are identical).
+last-digit differences (e.g. sustained CDA F = 0.905 vs 0.90, BF10 = 15,321 vs 15,304) come from
+the MATLAB measurement and export files, which store values with 3 decimals, while Julia keeps
+full precision; the trials, condition means and cluster windows are identical.
 
-Two details were needed for an exact match:
-
-- **ICA components of sub-49 and sub-69.** For these two participants, the components removed in
-  the MATLAB analysis differ from those listed in `ICs_to_Remove.xlsx`: sub-49 component 2 and
-  sub-69 components 1 and 7 (identified by reconstructing MATLAB's corrected data from the
-  uncorrected data). `ICS_APPLIED` in `scripts/config.jl` sets these; every other participant
-  uses `scripts/ICs_to_Remove.csv`.
-- **Event latencies after downsampling.** EEGLAB keeps fractional event latencies after
-  `pop_resample`, and `pop_epoch` takes the floor of the latency. Julia therefore converts the
-  event samples to 256 Hz with `floor` (rounding instead moves about a quarter of the epochs by
-  one sample).
-
-**Dataset version.** Use version 1.1.4 or later. In versions 1.0.x, the files of sub-10 and
-sub-49 were not the recordings the MATLAB analysis used (incomplete events: sub-10 1,224 of 1,248
-memory arrays, sub-49 1,006 of 1,244; sub-49 stored at 2048 Hz), and in versions before 1.1.4
-the EEG files of sub-46, sub-47 and sub-64 were not identical to the Script #0 recordings
-(`N.set`). Version 1.1.4 holds the Script #0 recordings for all participants (512 Hz, practice
-trials removed, complete events). `scripts/raw_events/` keeps the complete events of sub-10 and
-sub-49 (1,248 and 1,244 memory arrays), which script 01 reads for these two participants; with
-version 1.1.4 they are identical to the events files.
+**Dataset version.** Use the latest version of the dataset, 1.1.4: it contains all the
+corrections to the dataset and its files.
 
 Julia also finds short early NSW clusters (about 130–300 ms) in the comparisons with 2-UR. The
 original analysis found them too but did not report them, because they reflect sensory
 differences between two- and three-item displays rather than working memory load. The table
 above lists only the clusters after 300 ms.
 
-The recordings contain no boundary markers, and downsampling uses EEGLAB's own anti-aliasing
-filter (`eeglab_resample`, identical to `pop_resample` on a MATLAB test signal), so neither is a
-source of difference. Channel interpolation
-is not a source of difference either: none of the 14 channels of interest was interpolated in the
-original analysis.
+## Notes
 
-## Notes and limitations
-
-- **Probe-locked ERPs.** The original study also analyzed ERPs time-locked to the probe (N2pc
-  for initial comparison, N2 for percept-memory comparison, FN400 for decision and late
-  comparison). They are reproduced in
-  [vwm-erp-julia-probe](https://github.com/HananeRam/vwm-erp-julia-probe) (N = 52).
-- **Blinks: the original ICA correction.** By default (`BLINK_CORRECTION = :ica_weights`) Julia
-  applies the original ICA solution: the extended infomax weights saved by Script #3
-  (`<id>_allERPs_optimized_weights.set`, in the dataset derivatives) and the blink components
-  removed in Script #4 (`scripts/ICs_to_Remove.csv`: one for most participants, two for sub-40,
-  none for sub-32; for sub-49 and sub-69, the components set in `ICS_APPLIED`, see Validation). As in Script #4, the weights are applied to the 256 Hz, 0.1 Hz high-passed
-  data referenced to the left mastoid, the components are removed as in `pop_subcomp`, and the
-  data are then re-referenced to the average of the mastoids. Download the weights files into
-  `data/ds006979/derivatives` (any subfolder), or set `ICA_WEIGHTS=/path/to/folder`.
-- **Alternative: automated ICA** (`BLINK_CORRECTION = :fastica`), when the weights are not available:
-  a training copy band-passed 1–30 Hz, resampled to 100 Hz, breaks removed (Script #2); FastICA
-  with 30 components (Script #3); and removal of the same number of components per participant,
-  chosen as those most correlated with the bipolar VEOG (Script #4). EOG channels stay uncorrected
-  for artifact detection, and trials with a blink during stimulus presentation (−200 to 200 ms,
-  50 µV) are still rejected, as in the original. `results/ica.csv` lists the removed components
-  and their correlation with VEOG. The correction is close to, but not identical with, the
-  original (different ICA algorithm, random initialization, no manual review).
-  With `USE_ICA = false` in `config.jl`, blinks after 200 ms are instead rejected with the 30 µV
-  threshold of Diaz, Vogel & Awh (2021).
-- **Artifact parameters** come from the original ERPLAB spreadsheets: defaults in `config.jl`,
-  per-participant thresholds in `scripts/artifact_overrides.csv`. The detectors follow the
-  sample conventions of ERPLAB 10.02 (`pop_artstep`, `pop_artmwppth`, `window2sample`): window
-  and step lengths are `floor(ms × fs / 1000)` samples (200 ms → 51, 10 ms → 2, 100 ms → 25),
-  the first half of a step window has `round(51/2)` = 26 samples, period edges go to the sample at
-  `round(t × fs)` (so −50 to 300 ms becomes −50.8 to 300.8 ms), and a trial is flagged when the
-  value is strictly above the threshold. Applied to the ERPLAB HEOG of sub-02, these rules
-  reproduce ERPLAB's saccade flags for all 1,190 trials.
-- **Event codes:** codes 51–58 mark the memory array and 11–42 the probe, 1 s later (checked
-  in the events files). Trials are time-locked to 51–58, as in `BDF_stimulus_correct.txt`.
-- The 20 Hz low-pass is applied to each epoch, which gives exactly the same result as filtering
-  the averaged ERPs (Script #7a), including at the epoch edges. As in Script #11a, it is used
-  for the figures only; mean amplitudes are measured on the unfiltered
-  averages.
-- As in Script #1, all recordings are downsampled to 256 Hz on loading with EEGLAB's
-  `pop_resample` filter (all recordings are at 512 Hz; in versions 1.0.x of the dataset, the file of sub-49 was at 2048 Hz).
-- **Alpha band-pass: MATLAB's exact filter.** `bandpass(x, [8 12], 256)` designs the same filter
-  for every signal of a given length (a 12th-order elliptic band-pass, 6 second-order sections).
-  Its coefficients are in `scripts/matlab_bandpass_coeffs.csv`, and `matlab_filtfilt` applies them
-  exactly as MATLAB's `filtfilt` does: section by section, each with a 36-sample odd extension at
-  both ends and steady-state initial conditions. On a MATLAB test signal
-  (`scripts/matlab_filtfilt_test.csv`) the two agree to about 1e-12 (checked by script 05).
-  This matters because the filter rings for ~1.2 s, longer than the 0.5 s padding, so the edge
-  handling shapes the whole alpha time course; DSP.jl's `filtfilt`, or the same filter with its
-  sections in a different order, gives clearly different values. To export the coefficients again:
-  ```matlab
-  xt = randn(563, 1);                           % 563 = one padded trial at 256 Hz
-  [~, d] = bandpass(xt, [8 12], 256);
-  writematrix(d.Coefficients, 'matlab_bandpass_coeffs.csv', 'FileType', 'text');
-  writematrix([xt, filtfilt(d, xt)], 'matlab_filtfilt_test.csv', 'FileType', 'text');
-  ```
-  Without the coefficients file, Julia falls back to its own elliptic design (`ALPHA_FILTER`).
-- Alpha power: as in the MATLAB script, the Hilbert transform is applied after the 0.5 s padding is
-  removed. This creates edge artifacts in the first and last ~50 ms of the epoch (in the baseline
-  and the end of the 300–996.1 ms window). `ALPHA_HILBERT_PADDED = true` in `config.jl` applies the
-  transform to the padded signal instead, as a sensitivity analysis.
+- **Probe-locked ERPs.** The probe-locked analyses of the study (N2pc, N2, FN400) are reproduced in
+  [vwm-erp-julia-probe](https://github.com/HananeRam/vwm-erp-julia-probe) (N = 53).
+- **Alpha band-pass.** Julia applies MATLAB's exact `bandpass(x, [8 12], 256)` filter (coefficients in
+  `scripts/matlab_bandpass_coeffs.csv`), with the edge handling of MATLAB's `filtfilt`. This
+  matters because the filter rings for about 1.2 s, longer than the 0.5 s padding, so other
+  implementations give clearly different alpha values; script 05 checks the filter on a MATLAB
+  test signal.
 
 ## Data and citation
 
