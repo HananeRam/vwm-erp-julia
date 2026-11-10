@@ -1,22 +1,23 @@
 Cluster-based permutation tests, NSW (10000 permutations, alpha = 0.05)
 
-** 2-UR vs 3-UR ** (N = 39, t threshold = 2.024, cluster threshold = 50.39)
-  128.9 to 183.6 ms (mass = 62.21, p = 0.0361)
-  339.8 to 605.5 ms (mass = 239.43, p = 0.0021)
-  886.7 to 960.9 ms (mass = 51.76, p = 0.0474)
+** 2-UR vs 3-UR ** (N = 39, t threshold = 2.024, cluster threshold = 50.88)
+  132.8 to 183.6 ms (mass = 55.52, p = 0.0434)
+  226.6 to 289.1 ms (mass = 52.28, p = 0.0476)
+  402.3 to 605.5 ms (mass = 192.06, p = 0.0043)
+  886.7 to 960.9 ms (mass = 52.32, p = 0.0475)
 
-** 2-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 44.21)
-  128.9 to 179.7 ms (mass = 62.36, p = 0.0253)
-  207.0 to 296.9 ms (mass = 76.96, p = 0.018)
+** 2-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 45.05)
+  128.9 to 179.7 ms (mass = 57.56, p = 0.0309)
+  210.9 to 296.9 ms (mass = 75.47, p = 0.0201)
 
-** 2-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 45.22)
-  132.8 to 179.7 ms (mass = 59.8, p = 0.0272)
-  222.7 to 285.2 ms (mass = 53.64, p = 0.0345)
-  324.2 to 558.6 ms (mass = 189.94, p = 0.0019)
+** 2-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 44.83)
+  132.8 to 183.6 ms (mass = 60.37, p = 0.0257)
+  214.8 to 285.2 ms (mass = 58.28, p = 0.0278)
+  324.2 to 574.2 ms (mass = 191.68, p = 0.0017)
 
-** 3-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 50.55)
-  328.1 to 617.2 ms (mass = 349.54, p = 0.0001)
+** 3-UR vs 3-RSP ** (N = 39, t threshold = 2.024, cluster threshold = 51.43)
+  328.1 to 617.2 ms (mass = 352.95, p = 0.0002)
 
-** 3-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 45.98)
+** 3-UR vs 3-RWP ** (N = 39, t threshold = 2.024, cluster threshold = 45.75)
   No significant clusters.
 

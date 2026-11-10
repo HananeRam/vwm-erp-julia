@@ -2,87 +2,87 @@
 Linear mixed model fit by maximum likelihood
  cda ~ 1 + condition + (1 | subject)
    logLik   -2 logLik     AIC       AICc        BIC    
-  -109.7894   219.5787   231.5787   232.1425   249.8778
+  -111.0498   222.0996   234.0996   234.6634   252.3987
 
 Variance components:
             Column   Variance Std.Dev. 
-subject  (Intercept)  0.229674 0.479244
-Residual              0.145464 0.381398
+subject  (Intercept)  0.230221 0.479813
+Residual              0.148395 0.385221
  Number of obs: 156; levels of grouping factors: 39
 
   Fixed-effects parameters:
 ─────────────────────────────────────────────────────────
                        Coef.  Std. Error      z  Pr(>|z|)
 ─────────────────────────────────────────────────────────
-(Intercept)       -0.447197    0.0980762  -4.56    <1e-05
-condition: 3-RSP   0.0198853   0.0863696   0.23    0.8179
-condition: 3-RWP  -0.109713    0.0863696  -1.27    0.2040
-condition: 3-UR   -0.0581677   0.0863696  -0.67    0.5006
+(Intercept)       -0.442965    0.0985297  -4.50    <1e-05
+condition: 3-RSP   0.0167784   0.0872353   0.19    0.8475
+condition: 3-RWP  -0.108811    0.0872353  -1.25    0.2123
+condition: 3-UR   -0.0634008   0.0872353  -0.73    0.4674
 ─────────────────────────────────────────────────────────
 
 === N2PC (participant means) ===
 Linear mixed model fit by maximum likelihood
  n2pc ~ 1 + condition + (1 | subject)
    logLik   -2 logLik     AIC       AICc        BIC    
-  -118.6258   237.2515   249.2515   249.8153   267.5506
+  -117.5896   235.1791   247.1791   247.7429   265.4783
 
 Variance components:
             Column   Variance Std.Dev. 
-subject  (Intercept)  0.358263 0.598551
-Residual              0.148259 0.385044
+subject  (Intercept)  0.356714 0.597255
+Residual              0.145919 0.381993
  Number of obs: 156; levels of grouping factors: 39
 
   Fixed-effects parameters:
-──────────────────────────────────────────────────────────
-                        Coef.  Std. Error      z  Pr(>|z|)
-──────────────────────────────────────────────────────────
-(Intercept)       -0.340227     0.113964   -2.99    0.0028
-condition: 3-RSP  -0.328911     0.0871952  -3.77    0.0002
-condition: 3-RWP  -0.235947     0.0871952  -2.71    0.0068
-condition: 3-UR   -0.00492507   0.0871952  -0.06    0.9550
-──────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────
+                         Coef.  Std. Error      z  Pr(>|z|)
+───────────────────────────────────────────────────────────
+(Intercept)       -0.330712      0.113525   -2.91    0.0036
+condition: 3-RSP  -0.328028      0.0865044  -3.79    0.0001
+condition: 3-RWP  -0.240003      0.0865044  -2.77    0.0055
+condition: 3-UR   -0.000797225   0.0865044  -0.01    0.9926
+───────────────────────────────────────────────────────────
 
 === CDA (single trials) ===
 Linear mixed model fit by maximum likelihood
  cda ~ 1 + condition + (1 | subject)
     logLik   -2 logLik      AIC         AICc        BIC     
- -97953.5164 195907.0327 195919.0327 195919.0354 195969.2669
+ -97903.7380 195807.4760 195819.4760 195819.4786 195869.7083
 
 Variance components:
-            Column   Variance Std.Dev.
-subject  (Intercept)   0.23146 0.48110
-Residual              26.80483 5.17734
- Number of obs: 31964; levels of grouping factors: 39
+            Column    Variance Std.Dev. 
+subject  (Intercept)   0.233594 0.483316
+Residual              26.772447 5.174210
+ Number of obs: 31954; levels of grouping factors: 39
 
   Fixed-effects parameters:
 ──────────────────────────────────────────────────────────
                         Coef.  Std. Error      z  Pr(>|z|)
 ──────────────────────────────────────────────────────────
-(Intercept)       -0.474738     0.0959327  -4.95    <1e-06
-condition: 3-RSP   0.0467       0.0810983   0.58    0.5647
-condition: 3-RWP  -0.0822609    0.0806889  -1.02    0.3080
-condition: 3-UR    0.00723474   0.0826996   0.09    0.9303
+(Intercept)       -0.471002     0.096193   -4.90    <1e-06
+condition: 3-RSP   0.0426575    0.0810634   0.53    0.5987
+condition: 3-RWP  -0.0846194    0.0806376  -1.05    0.2940
+condition: 3-UR    0.00295327   0.0826512   0.04    0.9715
 ──────────────────────────────────────────────────────────
 
 === N2PC (single trials) ===
 Linear mixed model fit by maximum likelihood
  n2pc ~ 1 + condition + (1 | subject)
     logLik   -2 logLik      AIC         AICc        BIC     
- -99963.0127 199926.0254 199938.0254 199938.0280 199988.2596
+ -99915.7879 199831.5759 199843.5759 199843.5785 199893.8082
 
 Variance components:
             Column    Variance Std.Dev. 
-subject  (Intercept)   0.360658 0.600548
-Residual              30.385705 5.512323
- Number of obs: 31964; levels of grouping factors: 39
+subject  (Intercept)   0.359046 0.599204
+Residual              30.355487 5.509581
+ Number of obs: 31954; levels of grouping factors: 39
 
   Fixed-effects parameters:
 ─────────────────────────────────────────────────────────
                        Coef.  Std. Error      z  Pr(>|z|)
 ─────────────────────────────────────────────────────────
-(Intercept)       -0.362684    0.113815   -3.19    0.0014
-condition: 3-RSP  -0.30632     0.0863462  -3.55    0.0004
-condition: 3-RWP  -0.2236      0.0859102  -2.60    0.0092
-condition: 3-UR    0.0117118   0.0880512   0.13    0.8942
+(Intercept)       -0.355871    0.113613   -3.13    0.0017
+condition: 3-RSP  -0.303632    0.0863183  -3.52    0.0004
+condition: 3-RWP  -0.225723    0.0858647  -2.63    0.0086
+condition: 3-UR    0.0181735   0.0880091   0.21    0.8364
 ─────────────────────────────────────────────────────────
 

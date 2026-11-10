@@ -1,7 +1,7 @@
 # Lateralized ERPs in visual working memory: a Julia reanalysis
 
 A small, reproducible Julia pipeline that reanalyzes my open EEG dataset
-[ds006979 on OpenNeuro](https://doi.org/10.18112/openneuro.ds006979.v1.1.0) (version 1.1.0)
+[ds006979 on OpenNeuro](https://doi.org/10.18112/openneuro.ds006979.v1.1.4) (version 1.1.4)
 (Ramzaoui & Beck, *Scientific Reports*, Registered Report; Stage 1 accepted, Stage 2 under review).
 
 The study used a bilateral change-detection task to test how perceptual grouping by
@@ -12,7 +12,8 @@ lateralized ERP markers from the raw EEG:
 - **CDA** (contralateral delay activity): maintenance and memory load
 
 These are the **stimulus-locked** analyses (time-locked to the memory array). The
-**probe-locked ERPs** of the original study (**N2pc, N2, FN400**) are **not reproduced** here.
+**probe-locked ERPs** of the original study (**N2pc, N2, FN400**) are reproduced in a separate
+repository, [vwm-erp-julia-probe](https://github.com/HananeRam/vwm-erp-julia-probe).
 
 Two exploratory analyses are also reproduced, on the non-lateralized average of the
 14 posterior channels:
@@ -147,46 +148,58 @@ the primary maintenance and late set-size clusters (`results/exploratory/nsw_fig
 
 ## Validation against the MATLAB analysis (N = 39)
 
-Applied to the BIDS data with the original ICA weights and removed components, the Julia
-pipeline reproduces the MATLAB/ERPLAB + R analysis reported in the Stage 2 manuscript (correct
-trials only). Julia keeps 31,964 trials (MATLAB: 31,954), condition
-means are within 0.02 µV, every ANOVA gives the same conclusion, and every Bayes factor falls in
-the same evidence category except one at the BF01 = 3 threshold. `results/paper_comparison.txt`
+Applied to the BIDS data (version 1.1.4) with the original ICA weights and the components
+removed in the MATLAB analysis, the Julia pipeline reproduces the MATLAB/ERPLAB + R analysis
+reported in the Stage 2 manuscript (correct trials only). Julia keeps the same 31,954 trials as
+MATLAB, every condition mean is identical (to 2 decimals), and every ANOVA, pairwise comparison,
+cluster after 300 ms and Bayes factor gives the MATLAB value. `results/paper_comparison.txt`
 and `results/exploratory/*_paper_comparison.txt` print both side by side.
 
 | Analysis | MATLAB | Julia | Reproduced |
 | --- | --- | --- | --- |
-| N2pc, ANOVA | F(3, 114) = 7.32, p < .001, ηp² = .16 | F(3, 114) = 7.07, p < .001, ηp² = .16 | Yes |
+| Trials kept | 31,954 | 31,954 | Yes |
+| N2pc, ANOVA | F(3, 114) = 7.32, p < .001, ηp² = .16 | F(3, 114) = 7.32, p < .001, ηp² = .16 | Yes |
 | N2pc, 3-RSP vs 2-UR | −0.33 µV, p = .001 | −0.33 µV, p = .001 | Yes |
-| N2pc, 3-UR vs 3-RSP | 0.33 µV, p = .001 | 0.32 µV, p = .001 | Yes |
-| N2pc, 3-RWP vs 2-UR | −0.24 µV, p = .037 | −0.24 µV, p = .045 | Yes |
-| N2pc, 3-UR vs 3-RWP | 0.24 µV, p = .038 | 0.23 µV, p = .053 | Same difference; p at the .05 threshold |
-| Early CDA, ANOVA | F(3, 114) = 5.27, p = .002, ηp² = .12 | F(3, 114) = 5.14, p = .002, ηp² = .12 | Yes |
-| Early CDA, 3-RWP vs 2-UR and vs 3-RSP | −0.29 and −0.29 µV, p = .004 and .003 | −0.29 and −0.29 µV, p = .004 and .004 | Yes |
-| Early CDA, 3-UR vs 3-RWP | p = .102 | 0.20 µV, p = .115 | Yes (not significant) |
-| Sustained CDA, ANOVA | F(3, 114) = 0.86, p = .46, ηp² = .02 | F(3, 114) = 0.90, p = .44, ηp² = .02 | Yes (no effect) |
-| NSW, grouping cluster (3-UR vs 3-RSP) | 328.1–617.2 ms, BF10 = 23,892 | 328.1–617.2 ms, BF10 = 20,090 | Yes |
-| NSW, 3-UR vs 3-RWP | no cluster, BF01 = 5.22 | no cluster, BF01 = 5.40 | Yes |
-| NSW, set size (2-UR vs 3-UR) | 402.3–605.5 ms, BF10 = 103 | 339.8–605.5 ms, BF10 = 163 | Yes |
-| NSW, set size (2-UR vs 3-RWP) | 324.2–574.2 ms, BF10 = 27.9 | 324.2–558.6 ms, BF10 = 36.5 | Yes |
-| NSW, late cluster (2-UR vs 3-UR) | 886.7–960.9 ms, BF10 = 5.09 | 886.7–960.9 ms, BF10 = 4.96 | Yes |
-| NSW, 2-UR vs 3-RSP (a priori set-size window, 330–880 ms) | no cluster, BF01 = 2.99 | no cluster after 300 ms, BF01 = 3.51 | Same direction; at the threshold |
-| Alpha, BF01 (2-UR vs 3-UR, 3-RSP, 3-RWP; 3-UR vs 3-RSP, 3-RWP) | 5.49, 5.79, 1.00, 5.27, 2.82 | 5.36, 5.79, 1.02, 5.12, 2.98 | Yes |
+| N2pc, 3-RWP vs 2-UR | −0.24 µV, p = .037 | −0.24 µV, p = .037 | Yes |
+| N2pc, 3-UR vs 3-RSP | 0.33 µV, p = .001 | 0.33 µV, p = .001 | Yes |
+| N2pc, 3-UR vs 3-RWP | 0.24 µV, p = .038 | 0.24 µV, p = .038 | Yes |
+| Early CDA, ANOVA | F(3, 114) = 5.27, p = .002, ηp² = .12 | F(3, 114) = 5.27, p = .002, ηp² = .12 | Yes |
+| Early CDA, 3-RWP vs 2-UR and vs 3-RSP | −0.29 and −0.29 µV, p = .004 and .003 | −0.29 and −0.29 µV, p = .004 and .003 | Yes |
+| Early CDA, 3-UR vs 3-RWP | p = .102 | 0.20 µV, p = .102 | Yes (not significant) |
+| Sustained CDA, ANOVA | F(3, 114) = 0.86, p = .46, ηp² = .02 | F(3, 114) = 0.86, p = .46, ηp² = .02 | Yes (no effect) |
+| NSW, grouping cluster (3-UR vs 3-RSP) | 328.1–617.2 ms, BF10 = 23,892 | 328.1–617.2 ms, BF10 = 23,906 | Yes |
+| NSW, 3-UR vs 3-RWP | no cluster, BF01 = 5.22 | no cluster, BF01 = 5.22 | Yes |
+| NSW, set size (2-UR vs 3-UR) | 402.3–605.5 ms, BF10 = 103 | 402.3–605.5 ms, BF10 = 103 | Yes |
+| NSW, set size (2-UR vs 3-RWP) | 324.2–574.2 ms, BF10 = 27.9 | 324.2–574.2 ms, BF10 = 27.9 | Yes |
+| NSW, late cluster (2-UR vs 3-UR) | 886.7–960.9 ms, BF10 = 5.09 | 886.7–960.9 ms, BF10 = 5.08 | Yes |
+| NSW, 2-UR vs 3-RSP (a priori set-size window, 330–880 ms) | no cluster, BF01 = 2.99 | no cluster after 300 ms, BF01 = 2.995 | Yes |
+| Alpha, BF01 (2-UR vs 3-UR, 3-RSP, 3-RWP; 3-UR vs 3-RSP, 3-RWP) | 5.49, 5.79, 1.00, 5.27, 2.82 | 5.49, 5.79, 1.00, 5.27, 2.82 | Yes |
 
-Window tests use the MATLAB cluster windows, so both pipelines test the same
-intervals. The two values on either side of a threshold (N2pc 3-UR vs 3-RWP, p = .038 vs .053;
-a priori-window NSW, BF01 = 2.99 vs 3.51) come from the small remaining numerical differences
-(10 trials in total, and differences of about 0.01 µV in the participant means).
+Window tests use the MATLAB cluster windows, so both pipelines test the same intervals. The
+small differences in some NSW Bayes factors (e.g. 23,906 vs 23,892, < 0.1%) come from the
+numerical integration of the Bayes factor (Julia vs `BayesFactor::ttestBF` in R), not from the
+data (the trials, condition means and cluster windows are identical).
 
-**sub-10 and sub-49.** In versions 1.0.0 and 1.0.1 of the dataset, the files of these two
-participants were not the recordings the MATLAB analysis used: the events were incomplete (sub-10:
-1,224 of 1,248 memory arrays; sub-49: 1,006 of 1,244), and sub-49 was stored at 2048 Hz. Since
-version 1.1.0, they are the Script #0 recordings used in the analysis (`10.set`, `49.set`; 512 Hz,
-practice trials removed), with complete events. `scripts/raw_events/` holds the same events
-(1,248 and 1,244 memory arrays); script 01 reads them for these two participants, which gives the
-same result as the events files of version 1.1.0. With the files of versions 1.0.x, the participant
-means of these two participants differ by 0.2–0.4 µV and the 3-RWP N2pc comparisons are no
-longer significant, so use version 1.1.0 or later.
+Two details were needed for an exact match:
+
+- **ICA components of sub-49 and sub-69.** For these two participants, the components removed in
+  the MATLAB analysis differ from those listed in `ICs_to_Remove.xlsx`: sub-49 component 2 and
+  sub-69 components 1 and 7 (identified by reconstructing MATLAB's corrected data from the
+  uncorrected data). `ICS_APPLIED` in `scripts/config.jl` sets these; every other participant
+  uses `scripts/ICs_to_Remove.csv`.
+- **Event latencies after downsampling.** EEGLAB keeps fractional event latencies after
+  `pop_resample`, and `pop_epoch` takes the floor of the latency. Julia therefore converts the
+  event samples to 256 Hz with `floor` (rounding instead moves about a quarter of the epochs by
+  one sample).
+
+**Dataset version.** Use version 1.1.4 or later. In versions 1.0.x, the files of sub-10 and
+sub-49 were not the recordings the MATLAB analysis used (incomplete events: sub-10 1,224 of 1,248
+memory arrays, sub-49 1,006 of 1,244; sub-49 stored at 2048 Hz), and in versions before 1.1.4
+the EEG files of sub-46, sub-47 and sub-64 were not identical to the Script #0 recordings
+(`N.set`). Version 1.1.4 holds the Script #0 recordings for all participants (512 Hz, practice
+trials removed, complete events). `scripts/raw_events/` keeps the complete events of sub-10 and
+sub-49 (1,248 and 1,244 memory arrays), which script 01 reads for these two participants; with
+version 1.1.4 they are identical to the events files.
 
 Julia also finds short early NSW clusters (about 130–300 ms) in the comparisons with 2-UR. The
 original analysis found them too but did not report them, because they reflect sensory
@@ -201,14 +214,15 @@ original analysis.
 
 ## Notes and limitations
 
-- **Probe-locked ERPs not reproduced.** The original study also analyzed ERPs time-locked to
-  the probe (N2pc for initial comparison, N2 for percept-memory comparison, FN400 for decision
-  and late comparison). This repository covers only the stimulus-locked analyses.
+- **Probe-locked ERPs.** The original study also analyzed ERPs time-locked to the probe (N2pc
+  for initial comparison, N2 for percept-memory comparison, FN400 for decision and late
+  comparison). They are reproduced in
+  [vwm-erp-julia-probe](https://github.com/HananeRam/vwm-erp-julia-probe) (N = 52).
 - **Blinks: the original ICA correction.** By default (`BLINK_CORRECTION = :ica_weights`) Julia
   applies the original ICA solution: the extended infomax weights saved by Script #3
   (`<id>_allERPs_optimized_weights.set`, in the dataset derivatives) and the blink components
   removed in Script #4 (`scripts/ICs_to_Remove.csv`: one for most participants, two for sub-40,
-  none for sub-32). As in Script #4, the weights are applied to the 256 Hz, 0.1 Hz high-passed
+  none for sub-32; for sub-49 and sub-69, the components set in `ICS_APPLIED`, see Validation). As in Script #4, the weights are applied to the 256 Hz, 0.1 Hz high-passed
   data referenced to the left mastoid, the components are removed as in `pop_subcomp`, and the
   data are then re-referenced to the average of the mastoids. Download the weights files into
   `data/ds006979/derivatives` (any subfolder), or set `ICA_WEIGHTS=/path/to/folder`.
@@ -263,6 +277,6 @@ original analysis.
 
 Data: Ramzaoui, H., & Beck, M. (2026). *Examining perceptual grouping on stages of
 processing in visual working memory: An ERP study* [Dataset]. OpenNeuro, ds006979,
-v1.1.0. https://doi.org/10.18112/openneuro.ds006979.v1.1.0 (CC0)
+v1.1.4. https://doi.org/10.18112/openneuro.ds006979.v1.1.4 (CC0)
 
 Code: MIT License.

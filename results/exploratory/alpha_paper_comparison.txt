@@ -2,10 +2,10 @@ Alpha power (% change, 300–996.1 ms): Bayesian paired t-tests, BF01
 (Cauchy prior r = √2/2, as BayesFactor::ttestBF in R)
 
 Comparison        MATLAB   Julia    N
-2-UR vs 3-UR      5.49     5.36     39
+2-UR vs 3-UR      5.49     5.49     39
 2-UR vs 3-RSP     5.79     5.79     39
-2-UR vs 3-RWP     1.0      1.02     39
-3-UR vs 3-RSP     5.27     5.12     39
-3-UR vs 3-RWP     2.82     2.98     39
+2-UR vs 3-RWP     1.0      1.0      39
+3-UR vs 3-RSP     5.27     5.27     39
+3-UR vs 3-RWP     2.82     2.82     39
 
 BF01 > 3: moderate evidence for H0; 1–3: anecdotal.

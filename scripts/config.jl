@@ -125,6 +125,11 @@ const BLINK_CORRECTION = :ica_weights
 const ICA_WEIGHTS_DIR = get(ENV, "ICA_WEIGHTS",
                             joinpath(BIDS_ROOT, "derivatives", "ReplicationPeterson2015"))
 const ICS_TO_REMOVE = joinpath(@__DIR__, "ICs_to_Remove.csv")
+# Components actually removed by Script #4 where they differ from ICs_to_Remove.xlsx,
+# identified by reconstructing the MATLAB ..._ica_corr_reref.set files from the
+# uncorrected data and the weights (see vwm-erp-julia-probe). Julia removes these to
+# reproduce the published analysis. (Participant 46, also affected, is not in this sample.)
+const ICS_APPLIED = Dict(49 => [2], 69 => [1, 7])
 const USE_ICA = BLINK_CORRECTION !== :reject
 const ICA_N_REMOVE = Dict(3 => 2, 4 => 2, 36 => 2, 39 => 2, 40 => 2, 32 => 0,
                           20 => 0, 26 => 0, 27 => 0, 29 => 0, 31 => 0, 37 => 0, 38 => 0,

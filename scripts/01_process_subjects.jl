@@ -93,12 +93,13 @@ for sub in subjects
         events = DataFrame(sample=smp, value=val)
     end
     if fs_orig != fs                   # event samples (1-based) to the new rate
-        events.sample = round.(Int, (events.sample .- 1) .* (fs / fs_orig)) .+ 1
+        events.sample = floor.(Int, (events.sample .- 1) .* (fs / fs_orig)) .+ 1
     end
     # Scripts #2–#4: ICA blink correction of the scalp channels (EOG channels and
     # the bipolar HEOG/VEOG stay uncorrected for artifact detection).
     if BLINK_CORRECTION === :ica_weights
-        ica = read_ica_weights(find_ica_set(ICA_WEIGHTS_DIR, id), ics_to_remove(ICS_TO_REMOVE, id))
+        rm_ics = get(ICS_APPLIED, id, ics_to_remove(ICS_TO_REMOVE, id))
+        ica = read_ica_weights(find_ica_set(ICA_WEIGHTS_DIR, id), rm_ics)
         apply_ica_weights!(data, ica)
         rereference!(data)                      # left mastoid → average of mastoids
         push!(ica_all, (subject=sub, n_channels=length(ica.channels),

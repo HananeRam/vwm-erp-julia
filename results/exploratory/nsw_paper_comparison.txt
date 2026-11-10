@@ -1,20 +1,20 @@
 Negative slow wave: Julia vs. MATLAB/R results (correct trials)
 
 Significant clusters (ms)
-  2-UR vs 3-UR    MATLAB: 402.3–605.5, 886.7–960.9      Julia: 128.9–183.6, 339.8–605.5, 886.7–960.9
-  2-UR vs 3-RSP   MATLAB: none                          Julia: 128.9–179.7, 207.0–296.9
-  2-UR vs 3-RWP   MATLAB: 324.2–574.2                   Julia: 132.8–179.7, 222.7–285.2, 324.2–558.6
+  2-UR vs 3-UR    MATLAB: 402.3–605.5, 886.7–960.9      Julia: 132.8–183.6, 226.6–289.1, 402.3–605.5, 886.7–960.9
+  2-UR vs 3-RSP   MATLAB: none                          Julia: 128.9–179.7, 210.9–296.9
+  2-UR vs 3-RWP   MATLAB: 324.2–574.2                   Julia: 132.8–183.6, 214.8–285.2, 324.2–574.2
   3-UR vs 3-RSP   MATLAB: 328.1–617.2                   Julia: 328.1–617.2
   3-UR vs 3-RWP   MATLAB: none                          Julia: none
 
 Window tests: Bayesian paired t-tests (r = √2/2, as ttestBF in R)
   Window                Comparison      MATLAB BF10 Julia BF10  Julia BF01
-  Grouping_Cluster      3-UR vs 3-RSP   23892       20090       0.0
-  Grouping_Cluster      3-UR vs 3-RWP   0.192       0.185       5.397
-  SetSize_Cluster       2-UR vs 3-UR    103         163         0.006
-  SetSize_Cluster_RWP   2-UR vs 3-RWP   27.91       36.488      0.027
-  Late_Cluster          2-UR vs 3-UR    5.09        4.963       0.201
-  Diaz_SetSize          2-UR vs 3-RSP   0.334       0.285       3.511
+  Grouping_Cluster      3-UR vs 3-RSP   23892       23906       0.0
+  Grouping_Cluster      3-UR vs 3-RWP   0.192       0.192       5.215
+  SetSize_Cluster       2-UR vs 3-UR    103         103         0.01
+  SetSize_Cluster_RWP   2-UR vs 3-RWP   27.91       27.917      0.036
+  Late_Cluster          2-UR vs 3-UR    5.09        5.082       0.197
+  Diaz_SetSize          2-UR vs 3-RSP   0.334       0.334       2.995
 
 Clusters before 300 ms reflect sensory differences between two- and three-item
 displays; the MATLAB analysis found them too but did not report them.
