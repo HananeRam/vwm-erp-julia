@@ -193,11 +193,6 @@ above lists only the clusters after 300 ms.
 
 - **Probe-locked ERPs.** The probe-locked analyses of the study (N2pc, N2, FN400) are reproduced in
   [vwm-erp-julia-probe](https://github.com/HananeRam/vwm-erp-julia-probe) (N = 53).
-- **Alpha band-pass.** Julia applies MATLAB's exact `bandpass(x, [8 12], 256)` filter (coefficients in
-  `scripts/matlab_bandpass_coeffs.csv`), with the edge handling of MATLAB's `filtfilt`. This
-  matters because the filter rings for about 1.2 s, longer than the 0.5 s padding, so other
-  implementations give clearly different alpha values; script 05 checks the filter on a MATLAB
-  test signal.
 
 ## Data and citation
 
