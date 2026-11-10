@@ -165,8 +165,8 @@ and `results/exploratory/*_paper_comparison.txt` print both side by side.
 | N2pc, 3-UR vs 3-RWP | 0.24 µV, p = .038 | 0.24 µV, p = .038 | Yes |
 | Early CDA, ANOVA | F(3, 114) = 5.27, p = .002, ηp² = .12 | F(3, 114) = 5.27, p = .002, ηp² = .12 | Yes |
 | Early CDA, 3-RWP vs 2-UR and vs 3-RSP | −0.29 and −0.29 µV, p = .004 and .003 | −0.29 and −0.29 µV, p = .004 and .003 | Yes |
-| Early CDA, 3-UR vs 3-RWP | p = .102 | 0.20 µV, p = .102 | Yes (not significant) |
-| Sustained CDA, ANOVA | F(3, 114) = 0.86, p = .46, ηp² = .02 | F(3, 114) = 0.86, p = .46, ηp² = .02 | Yes (no effect) |
+| Early CDA, 3-UR vs 3-RWP | p = .102 | 0.20 µV, p = .102 | Yes |
+| Sustained CDA, ANOVA | F(3, 114) = 0.86, p = .46, ηp² = .02 | F(3, 114) = 0.86, p = .46, ηp² = .02 | Yes |
 | NSW, grouping cluster (3-UR vs 3-RSP) | 328.1–617.2 ms, BF10 = 23,892 | 328.1–617.2 ms, BF10 = 23,906 | Yes |
 | NSW, 3-UR vs 3-RWP | no cluster, BF01 = 5.22 | no cluster, BF01 = 5.22 | Yes |
 | NSW, set size (2-UR vs 3-UR) | 402.3–605.5 ms, BF10 = 103 | 402.3–605.5 ms, BF10 = 103 | Yes |
