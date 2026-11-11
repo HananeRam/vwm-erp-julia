@@ -79,19 +79,6 @@ for sub in subjects
 
     # Script #5: trial labels and epochs.
     events = read_events(events_path(sub))
-    # sub-10 and sub-49: scripts/raw_events/<sub>.csv holds the events of the MATLAB
-    # Script #0 dataset (1-based latencies at 512 Hz; 1248 and 1244 memory arrays),
-    # the input of the original analysis. Since dataset version 1.1.0 the OpenNeuro
-    # files of these two participants are the same recordings and events; in versions
-    # 1.0.x the events were incomplete and sub-49 was at 2048 Hz (README).
-    # Latencies are rescaled if the EEG file has another rate.
-    raw_ev = joinpath(@__DIR__, "raw_events", "$(sub).csv")
-    if isfile(raw_ev)
-        r = CSV.read(raw_ev, DataFrame; types=Dict(:typ => String))
-        val = [something(tryparse(Int, filter(isdigit, t)), -1) for t in r.typ]
-        smp = round.(Int, (r.lat .- 1) .* (fs_orig / 512)) .+ 1
-        events = DataFrame(sample=smp, value=val)
-    end
     if fs_orig != fs                   # event samples (1-based) to the new rate
         events.sample = floor.(Int, (events.sample .- 1) .* (fs / fs_orig)) .+ 1
     end
