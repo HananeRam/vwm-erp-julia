@@ -1,7 +1,7 @@
 # Lateralized ERPs in visual working memory: a Julia reanalysis
 
 A small, reproducible Julia pipeline that reanalyzes my open EEG dataset
-[ds006979 on OpenNeuro](https://doi.org/10.18112/openneuro.ds006979.v1.1.4) (version 1.1.4)
+[ds006979 on OpenNeuro](https://doi.org/10.18112/openneuro.ds006979.v1.1.5) (version 1.1.5)
 (Ramzaoui & Beck, *Scientific Reports*, Registered Report; Stage 1 accepted, Stage 2 under review).
 
 The study used a bilateral change-detection task to test how perceptual grouping by
@@ -148,7 +148,7 @@ the primary maintenance and late set-size clusters (`results/exploratory/nsw_fig
 
 ## Validation against the MATLAB analysis (N = 39)
 
-Applied to the BIDS data (version 1.1.4) with the original ICA weights, the Julia pipeline
+Applied to the BIDS data (version 1.1.5) with the original ICA weights, the Julia pipeline
 reproduces the MATLAB/ERPLAB + R analysis (correct trials only). The reference is the revised
 MATLAB analysis, in which the blink components removed for every participant are those listed in
 `ICs_to_Remove.xlsx`. Julia keeps the same 31,954 trials as MATLAB, every condition
@@ -181,7 +181,7 @@ last-digit differences (e.g. sustained CDA F = 0.905 vs 0.90, BF10 = 15,321 vs 1
 the MATLAB measurement and export files, which store values with 3 decimals, while Julia keeps
 full precision; the trials, condition means and cluster windows are identical.
 
-**Dataset version.** Use the latest version of the dataset, 1.1.4: it contains all the
+**Dataset version.** Use the latest version of the dataset, 1.1.5: it contains all the
 corrections to the dataset and its files.
 
 Julia also finds short early NSW clusters (about 130–300 ms) in the comparisons with 2-UR. The
@@ -198,6 +198,6 @@ above lists only the clusters after 300 ms.
 
 Data: Ramzaoui, H., & Beck, M. (2026). *Examining perceptual grouping on stages of
 processing in visual working memory: An ERP study* [Dataset]. OpenNeuro, ds006979,
-v1.1.4. https://doi.org/10.18112/openneuro.ds006979.v1.1.4 (CC0)
+v1.1.5. https://doi.org/10.18112/openneuro.ds006979.v1.1.5 (CC0)
 
 Code: MIT License.
