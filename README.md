@@ -57,7 +57,7 @@ The steps follow the original MATLAB/EEGLAB/ERPLAB scripts used for the register
 2 mastoids; 512 Hz) and saved as BioSemi `.bdf` files. Script #0 imported the `.bdf` files in
 EEGLAB (channel selection, CleanLine, practice-trial removal), and the cleaned recordings were
 converted to BIDS with FieldTrip. The BIDS files therefore correspond to the Script #0
-output (`N.set`), including the recoded responses for participants 21 and 22, and
+output (`N.set`), and
 preprocessing starts at Script #1, as in the original analysis. The BIDS release provides them as BrainVision files for every
 participant (and also as EDF for sub-01). This repository reads the BrainVision files with a small
 memory-mapped reader; `scripts/03_check_formats.jl` reads sub-01's EDF copy with
